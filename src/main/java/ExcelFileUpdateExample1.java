@@ -43,34 +43,8 @@ public class ExcelFileUpdateExample1 {
 			int rowCount = sheet.getLastRowNum();
 
 			for (Object[] aBook : bookData) {
-				//Código Adrián para crear hojas nuevas al llegar a 30 celdas
-				if ( (rowCount) >= 30) {
-
-					sheet = workbook.getSheetAt(workbook.getNumberOfSheets()-1);
-					rowCount = sheet.getLastRowNum();
-					if (rowCount >= 30){
-						sheet = workbook.createSheet("Java Books " + (workbook.getNumberOfSheets()+1));
-
-						Object[][] startString = {
-							{"No", "Book Title", "Author", "Price"},
-						};
-						for (Object[] cells : startString) {
-							Row r = sheet.getRow(0);
-							r = sheet.createRow(0);
-	
-							int columnCount = 0;
-	
-							Cell c = r.createCell(columnCount);
-							for (Object field : cells) {
-								c = r.createCell(columnCount++);
-								c.setCellValue((String) field);
-							}
-						}
-					}
-
-					rowCount = sheet.getLastRowNum();
-				}
-				//\ Finaliza código
+				
+				checkSheets(workbook);
 
 				Row row = sheet.createRow(++rowCount);
 
@@ -134,6 +108,40 @@ public class ExcelFileUpdateExample1 {
 				}
 				System.out.println();
 			}
+		}
+		//\ Finaliza código
+	}
+
+	public static void checkSheets(Workbook workbook) {
+		//Código Adrián para crear hojas nuevas al llegar a 30 celdas
+		Sheet sheet = workbook.getSheetAt(0);
+		int rowCount = sheet.getLastRowNum();
+
+		if ( (rowCount) >= 30) {
+
+			sheet = workbook.getSheetAt(workbook.getNumberOfSheets()-1);
+			rowCount = sheet.getLastRowNum();
+			if (rowCount >= 30){
+				sheet = workbook.createSheet("Java Books " + (workbook.getNumberOfSheets()+1));
+
+				Object[][] startString = {
+					{"No", "Book Title", "Author", "Price"},
+				};
+				for (Object[] cells : startString) {
+					Row r = sheet.getRow(0);
+					r = sheet.createRow(0);
+
+					int columnCount = 0;
+
+					Cell c = r.createCell(columnCount);
+					for (Object field : cells) {
+						c = r.createCell(columnCount++);
+						c.setCellValue((String) field);
+					}
+				}
+			}
+
+			rowCount = sheet.getLastRowNum();
 		}
 		//\ Finaliza código
 	}
