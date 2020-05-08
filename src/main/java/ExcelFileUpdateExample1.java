@@ -88,7 +88,7 @@ public class ExcelFileUpdateExample1 {
 	}
 
 	public static void fill(){
-		String excelFilePath = "Inventario.xlsx";
+		String excelFilePath = "Inventario.xls";
 		try {
 			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 				Workbook workbook = WorkbookFactory.create(inputStream);
@@ -141,7 +141,7 @@ public class ExcelFileUpdateExample1 {
 	}
 
 	public static void showContent() {
-		String excelFilePath = "Inventario.xlsx";
+		String excelFilePath = "Inventario.xls";
 		try {
 			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 			Workbook workbook = WorkbookFactory.create(inputStream);
