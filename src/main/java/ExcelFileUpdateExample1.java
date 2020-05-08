@@ -1,9 +1,7 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,12 +18,42 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
  */
 public class ExcelFileUpdateExample1 {
 
-
-	public static void main(String[] args) {
-		String excelFilePath = "Inventario.xlsx";
-		
+	public void CrearExcel(String nombre){
+		Workbook libro =  new HSSFWorkbook();
+		Sheet hoja = libro.createSheet();
+		Row fila = hoja.createRow(0);
+		Cell celda = fila.createCell(0);
+		celda.setCellValue("No");
+		celda = fila.createCell(1);
+		celda.setCellValue("Book Title");
+		celda = fila.createCell(2);
+		celda.setCellValue("Author");
+		celda = fila.createCell(3);
+		celda.setCellValue("Price");
+		String file = nombre+".xls";
 		try {
-			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+			FileOutputStream out = new FileOutputStream(file);
+			libro.write(out);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	public static void main(String[] args) {
+		String excelFilePath = "Inventario.xls";
+		File excel = new File(excelFilePath);
+		ExcelFileUpdateExample1 variable = new ExcelFileUpdateExample1();
+		if (!excel.exists()){
+			//excel.createNewFile()
+			variable.CrearExcel("Inventario");
+			excel = new File("Inventario.xls");
+			System.out.println("Se creo el archivo Inventario ya que no existe");
+		}
+
+		try {
+			FileInputStream inputStream = new FileInputStream(excel);
 			Workbook workbook = WorkbookFactory.create(inputStream);
 
 			Sheet sheet = workbook.getSheetAt(0);
