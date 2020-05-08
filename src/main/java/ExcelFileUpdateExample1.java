@@ -87,7 +87,7 @@ public class ExcelFileUpdateExample1 {
 		}
 	}
 
-	public static void fill(){
+	public static void fill(String titulo, String autor, String precio){
 		String excelFilePath = "Inventario.xls";
 		try {
 			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
@@ -96,10 +96,11 @@ public class ExcelFileUpdateExample1 {
 				Sheet sheet = workbook.getSheetAt(0);
 
 				Object[][] bookData = {
-						{"El que se duerme pierde", "Tom Peter", 16},
+						{titulo, autor, precio},
+						/*{"El que se duerme pierde", "Tom Peter", 16},
 						{"Sin lugar a duda", "Ana Gutierrez", 26},
 						{"El arte de dormir", "Nico", 32},
-						{"Buscando a Nemo", "Humble Po", 41},
+						{"Buscando a Nemo", "Humble Po", 41},*/
 				};
 
 				int rowCount = sheet.getLastRowNum();
@@ -235,6 +236,7 @@ public class ExcelFileUpdateExample1 {
 			String ID ="";
 			String autor = "";
 			String precio = "";
+			String titulo = "";
 			String input = JOptionPane.showInputDialog(null, "Seleccione una opcion: \n 1- Actualizar Autor \n 2- Actualizar Precio \n 3- Llenar celda \n 4- Mostrar contenido del documento");
 			Integer option = Integer.parseInt(input);
 			switch(option){
@@ -249,7 +251,10 @@ public class ExcelFileUpdateExample1 {
 					UpdateCell(1,precio, Integer.parseInt(ID));
 					break;
 				case 3:
-					fill();
+					titulo = JOptionPane.showInputDialog(null, "Inserte el título");
+					autor = JOptionPane.showInputDialog(null, "Inserte el autor");
+					precio = JOptionPane.showInputDialog(null, "Inserte el precio");
+					fill(titulo, autor, precio);
 					showContent();
 					break;
 				case 4:
