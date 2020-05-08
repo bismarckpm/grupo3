@@ -22,7 +22,7 @@ public class ExcelFileUpdateExample1 {
 
 	public void CrearExcel(String nombre){
 		Workbook libro =  new HSSFWorkbook();
-		Sheet hoja = libro.createSheet();
+		Sheet hoja = libro.createSheet("Java Books");
 		Row fila = hoja.createRow(0);
 		Cell celda = fila.createCell(0);
 		celda.setCellValue("No");
@@ -125,8 +125,6 @@ public class ExcelFileUpdateExample1 {
 					}
 
 				}
-
-				showContent();
 
 				inputStream.close();
 
@@ -252,6 +250,7 @@ public class ExcelFileUpdateExample1 {
 					break;
 				case 3:
 					fill();
+					showContent();
 					break;
 				case 4:
 					showContent();
