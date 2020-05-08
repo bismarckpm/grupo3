@@ -90,7 +90,7 @@ public class ExcelFileUpdateExample1 {
 
 			}
 
-			showContent();
+			showContent(workbook);
 
 			inputStream.close();
 
@@ -105,7 +105,7 @@ public class ExcelFileUpdateExample1 {
 		}
 	}
 
-	public static void showContent() {
+	public static void showContent(Workbook workbook) {
 		//Código Adrián para mostrar contenido
 		for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 			Iterator<Row> iterator = workbook.getSheetAt(i).iterator();
