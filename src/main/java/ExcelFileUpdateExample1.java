@@ -6,10 +6,12 @@ import java.io.IOException;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.util.CellAddress;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import javax.swing.JOptionPane;
 
 /**
  * This program illustrates how to update an existing Microsoft Excel document.
@@ -22,14 +24,11 @@ public class ExcelFileUpdateExample1 {
 
 
 	public static void main(String[] args) {
-		String excelFilePath = "Inventario.xlsx";
-		
+		UpdateCell(0,"37090",5);
+		/* String excelFilePath = "Inventario.xlsx";
 		try {
 			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 			Workbook workbook = WorkbookFactory.create(inputStream);
-
-			Sheet sheet = workbook.getSheetAt(0);
-
 			Object[][] bookData = {
 					{"El que se duerme pierde", "Tom Peter", 16},
 					{"Sin lugar a duda", "Ana Gutierrez", 26},
@@ -57,14 +56,48 @@ public class ExcelFileUpdateExample1 {
 				}
 
 			}
-
 			inputStream.close();
-
 			FileOutputStream outputStream = new FileOutputStream(excelFilePath);
 			workbook.write(outputStream);
 			workbook.close();
 			outputStream.close();
+
+
 			
+		} catch (IOException | EncryptedDocumentException
+				| InvalidFormatException ex) {
+			ex.printStackTrace();
+		} */
+	}
+
+	public static void UpdateCell(Integer option, String content, Integer id){
+		String excelFilePath = "Inventario.xlsx";
+		try {
+			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+			Workbook workbook = WorkbookFactory.create(inputStream);
+			Sheet sheet = workbook.getSheetAt(0);
+			Integer cell;
+			if(option == 1)
+				/*Esta opcion el usuario indica que quiere modificar el autor */
+				cell = 2;
+			else
+				/*Esta opcion el usuario indica que quiere modificar el precio */
+				cell = 3;
+				
+			Row row = sheet.getRow(id);
+				if(row != null){
+					Cell cell2Update = sheet.getRow(id).getCell(cell);
+					if(cell == 3)
+						cell2Update.setCellValue(Integer.parseInt(content));
+					else
+						cell2Update.setCellValue(content);
+					
+				}
+				inputStream.close();
+			FileOutputStream outputStream = new FileOutputStream(excelFilePath);
+			workbook.write(outputStream);
+			workbook.close();
+			outputStream.close();
 		} catch (IOException | EncryptedDocumentException
 				| InvalidFormatException ex) {
 			ex.printStackTrace();
