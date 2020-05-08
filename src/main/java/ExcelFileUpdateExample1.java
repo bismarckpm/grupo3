@@ -24,7 +24,33 @@ public class ExcelFileUpdateExample1 {
 
 
 	public static void main(String[] args) {
-		UpdateCell(0,"37090",5);
+		try{
+			String ID ="";
+			String autor = "";
+			String precio = "";
+			String input = JOptionPane.showInputDialog(null, "Seleccione una opcion: \n 1- Actualizar Autor \n 2- Actualizar Precio \n");
+			Integer option = Integer.parseInt(input);
+			switch(option){
+				case 1:
+					ID = JOptionPane.showInputDialog(null, "Inserte el ID");
+					autor = JOptionPane.showInputDialog(null, "Inserte el autor");
+					UpdateCell(1,autor,Integer.parseInt(ID));
+					break;
+				case 2:
+					ID = JOptionPane.showInputDialog(null, "Inserte el ID");
+					precio = JOptionPane.showInputDialog(null, "Inserte el precio");
+					UpdateCell(1,precio, Integer.parseInt(ID));
+					break;
+			}
+		}
+		catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "Introdujo un dato invalido", "Error", JOptionPane.ERROR_MESSAGE);
+			throw e;
+		}
+		catch(Exception e){
+			throw e;
+		}
+	
 		/* String excelFilePath = "Inventario.xlsx";
 		try {
 			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
@@ -76,7 +102,7 @@ public class ExcelFileUpdateExample1 {
 			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 			Workbook workbook = WorkbookFactory.create(inputStream);
 			Sheet sheet = workbook.getSheetAt(0);
-			Integer cell;
+			Integer cell=0;
 			if(option == 1)
 				/*Esta opcion el usuario indica que quiere modificar el autor */
 				cell = 2;
@@ -85,15 +111,22 @@ public class ExcelFileUpdateExample1 {
 				cell = 3;
 				
 			Row row = sheet.getRow(id);
-				if(row != null){
-					Cell cell2Update = sheet.getRow(id).getCell(cell);
-					if(cell == 3)
-						cell2Update.setCellValue(Integer.parseInt(content));
-					else
-						cell2Update.setCellValue(content);
-					
-				}
-				inputStream.close();
+			if(row != null){
+				Cell cell2Update = sheet.getRow(id).getCell(cell);
+				if(cell == 3)
+					cell2Update.setCellValue(Integer.parseInt(content));
+				else
+					cell2Update.setCellValue(content);
+				
+			}
+			String output="";
+			for(Integer i = 1;i<=sheet.getLastRowNum();i++){
+				output += sheet.getRow(i).getCell(0) + " " + sheet.getRow(i).getCell(1) + " " + sheet.getRow(i).getCell(2) + " " + sheet.getRow(i).getCell(3) + "\n";
+			}
+
+			JOptionPane.showMessageDialog(null, output);
+
+			inputStream.close();
 			FileOutputStream outputStream = new FileOutputStream(excelFilePath);
 			workbook.write(outputStream);
 			workbook.close();
