@@ -90,36 +90,7 @@ public class ExcelFileUpdateExample1 {
 
 			}
 
-			//Código Adrián para mostrar contenido
-			for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-				Iterator<Row> iterator = workbook.getSheetAt(i).iterator();
-
-				System.out.println("Hoja: " + workbook.getSheetAt(i).getSheetName());
-				while (iterator.hasNext()) {
-					Row nextRow = iterator.next();
-					Iterator<Cell> cellIterator = nextRow.cellIterator();
-					 
-					while (cellIterator.hasNext()) {
-						Cell cell = cellIterator.next();
-						 
-						switch (cell.getCellType()) {
-							case Cell.CELL_TYPE_STRING:
-								System.out.print(cell.getStringCellValue());
-								break;
-							case Cell.CELL_TYPE_BOOLEAN:
-								System.out.print(cell.getBooleanCellValue());
-								break;
-							case Cell.CELL_TYPE_NUMERIC:
-								System.out.print(cell.getNumericCellValue());
-								break;
-						}
-						if (cellIterator.hasNext())
-							System.out.print(" - ");
-					}
-					System.out.println();
-				}
-			}
-			//\ Finaliza código
+			showContent();
 
 			inputStream.close();
 
@@ -134,4 +105,36 @@ public class ExcelFileUpdateExample1 {
 		}
 	}
 
+	public static void showContent() {
+		//Código Adrián para mostrar contenido
+		for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+			Iterator<Row> iterator = workbook.getSheetAt(i).iterator();
+
+			System.out.println("Hoja: " + workbook.getSheetAt(i).getSheetName());
+			while (iterator.hasNext()) {
+				Row nextRow = iterator.next();
+				Iterator<Cell> cellIterator = nextRow.cellIterator();
+				
+				while (cellIterator.hasNext()) {
+					Cell cell = cellIterator.next();
+					
+					switch (cell.getCellType()) {
+						case Cell.CELL_TYPE_STRING:
+							System.out.print(cell.getStringCellValue());
+							break;
+						case Cell.CELL_TYPE_BOOLEAN:
+							System.out.print(cell.getBooleanCellValue());
+							break;
+						case Cell.CELL_TYPE_NUMERIC:
+							System.out.print(cell.getNumericCellValue());
+							break;
+					}
+					if (cellIterator.hasNext())
+						System.out.print(" - ");
+				}
+				System.out.println();
+			}
+		}
+		//\ Finaliza código
+	}
 }
